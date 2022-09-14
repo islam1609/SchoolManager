@@ -1,0 +1,175 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate = "layout/main.html">
+<body>
+<div layout:fragment="mainContent">
+    <div  class="container mt-2">
+        <h2>TEACHER PANEL</h2>
+        <h3>ADD TASKS,SUBJECTS</h3>
+    </div>
+    <div class="container mt-3">
+        <div class="col-12">
+            <div class="table table-hover">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>TYPE</th>
+                        <th>DESCRIPTION</th>
+                        <th>SUBJECT</th>
+                        <th>AUTHOR</th>
+                        <th>DEADLINE</th>
+                        <th>DETAILS</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="task : ${tasks}">
+                        <td th:text="${task.id}"></td>
+                        <td th:text="${task.getType.name}"></td>
+                        <td th:text="${task.description}"></td>
+                        <td th:text="${task.getSubject.name}"></td>
+                        <td th:text="${task.getUser.fullName}"></td>
+                        <td th:text="${task.date}"></td>
+                        <td>
+                            <a th:href="@{'/details/' + ${task.id}}">Details</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-3">
+        <div class="col-12">
+            <div class="table table-hover">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>FULLNAME</th>
+                        <th>EMAIL</th>
+                        <th>PH-NUMBER</th>
+                        <th>ADDRESS</th>
+                        <th>ROLE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="st : ${students}">
+                        <td th:text="${st.fullName}"></td>
+                        <td th:text="${st.email}"></td>
+                        <td th:text="${st.number}"></td>
+                        <td th:text="${st.address}"></td>
+                        <td th:text="${st.address}"></td>
+                        <td >STUDENT</td>
+                        <td>
+                            <a th:href="@{'/studentDetails/' + ${st.id}}">Details</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-2">
+        <div class="row col-12">
+            <div class="col-4">
+                <form th:action="@{'/addTask'}" method="post">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>TYPE OF TASK : </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <select th:name="task_type_id">
+                                <option th:each="t : ${allTypes}" th:text="${t.name}"
+                                        th:value="${t.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>DESCRIPTION : </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  name="task_desc" required placeholder="DESCRIPTION">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>SUBJECT : </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <select th:name="task_subject_id">
+                                <option th:each="sub : ${subjects}" th:text="${sub.name}"
+                                        th:value="${sub.id}"></option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>DEADLINE DATE : </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="date" name="deadlineDate">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-3">
+                            <button type="submit">ADD TASKS</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <div class="col-4">
+                <form th:action="@{'/addSubject'}" method="post">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>SUBJECT NAME : </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  name="subject_name" required placeholder="Математика....">
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-3">
+                                <button type="submit">ADD SUBJECT</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <div class="col-4">
+                <form th:action="@{'/addType'}" method="post">
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <label>TYPE NAME : </label>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <input type="text"  name="type_name" required placeholder="Творческая работа...">
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-3">
+                                <button type="submit">ADD TYPE</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

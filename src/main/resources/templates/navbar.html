@@ -1,0 +1,27 @@
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: darkslateblue">
+    <div class="container-fluid">
+      <a class="navbar-brand" th:href="@{'/menu'}"><strong>Home Tasks</strong></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active text-white-50 " aria-current="page"
+                    th:href="@{'/teacherPanel'}" sec:authorize="hasAnyRole('ROLE_TEACHER')">TEACHER PANEL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active text-white-50 " aria-current="page"
+                    th:href="@{'/profile'}" sec:authorize="isAuthenticated()")>PROFILE PANEL</a>
+          </li>
+          <li class="nav-item">
+            <form  th:action="@{'/vyhod'}" method="post">
+            <button type="submit" class="btn btn-link text-decoration-none" >Sign Out</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

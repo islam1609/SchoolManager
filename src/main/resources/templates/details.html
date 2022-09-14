@@ -1,0 +1,71 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      layout:decorate = "layout/main.html">
+<body>
+<div layout:fragment="mainContent">
+<div class="container mt-2">
+    <div class="col-12">
+        <form th:action="@{'/editTask'}" method="post">
+            <input type="hidden" name="taskId" th:value="${task.id}">
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>TYPE : </label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <select th:name="task_type_id">
+                        <option th:each="t : ${allTypes}" th:text="${t.name}"
+                                th:value="${t.id}" th:selected="${t.name==task.getType.name}"></option>
+                    </select>             </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>DESCRIPTION : </label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <input type="text" th:value="${task.description}"  name="task_desc" required>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>SUBJECT : </label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <select th:name="task_subject_id">
+                        <option th:each="sub : ${subjects}" th:text="${sub.name}"
+                                th:value="${sub.id}" th:selected="${task.getSubject.name==sub.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-12">
+                    <label>DEADLINE DATE : </label>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                   <input type="date" name="deadlineDate" th:value="${task.date}">
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-3">
+                    <button type="submit">EDIT ITEM</button>
+                    </form>
+                    <form th:action="@{'/deleteTask'}" method="post">
+                        <input type="hidden" name="taskId" th:value="${task.id}">
+                        <button>Delete Item</button>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+</div>
+</body>
+</html>
